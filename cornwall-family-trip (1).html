@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cornwall — Cliffs, Tin Mines & Wild Atlantic</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --atlantic: #0d2535;
+    --deep: #06131c;
+    --wave: #1a4a6a;
+    --teal: #2a8a8a;
+    --teal-light: #3ab0b0;
+    --foam: #c8eaec;
+    --granite: #3a3530;
+    --cliff: #5a5048;
+    --cream: #f8f4ec;
+    --warm: #f2ead8;
+    --gold: #d4a020;
+    --gold-light: #f0c040;
+    --rust: #c84820;
+    --heather: #7a3a6a;
+    --white: #fdfcfa;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--white);
+    color: var(--deep);
+    font-family: 'Crimson Pro', serif;
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--deep);
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 64px 80px;
+    position: relative; overflow: hidden;
+  }
+
+  /* Wave animation */
+  .wave-wrap {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 100%;
+    pointer-events: none;
+  }
+  .wave {
+    position: absolute;
+    bottom: 0; left: -20%; right: -20%;
+    height: 320px;
+    border-radius: 45% 55% 40% 60% / 35% 40% 60% 65%;
+    animation: waveRoll 12s ease-in-out infinite;
+  }
+  .wave1 { background: rgba(42,138,138,0.07); animation-delay: 0s; }
+  .wave2 { background: rgba(26,74,106,0.1); height: 260px; animation-delay: -4s; animation-duration: 9s; }
+  .wave3 { background: rgba(13,37,53,0.15); height: 200px; animation-delay: -8s; animation-duration: 15s; }
+  @keyframes waveRoll {
+    0%,100% { transform: translateX(-3%) scaleY(1); }
+    50% { transform: translateX(3%) scaleY(1.05); }
+  }
+
+  /* Diagonal rule */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 1px; height: 70%;
+    background: linear-gradient(180deg, transparent, var(--teal), transparent);
+    right: 25%;
+    opacity: 0.3;
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 820px; }
+
+  .hero-flag {
+    display: inline-flex; align-items: center; gap: 14px;
+    margin-bottom: 32px;
+    animation: surge 0.8s ease both 0.1s;
+  }
+  .hero-flag .line { width: 48px; height: 1px; background: var(--teal); }
+  .hero-flag span {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 9px; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--teal-light);
+  }
+
+  .hero h1 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(52px, 10vw, 126px);
+    font-weight: 900;
+    line-height: 0.87;
+    letter-spacing: -3px;
+    color: var(--white);
+    animation: surge 0.8s ease both 0.2s;
+  }
+  .hero h1 .ghost {
+    display: block;
+    font-size: 0.38em;
+    font-weight: 300;
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    color: rgba(200,234,236,0.45);
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+  .hero h1 .accent { color: var(--teal-light); }
+
+  .hero-body {
+    font-size: 16px;
+    color: rgba(200,234,236,0.55);
+    max-width: 500px;
+    margin: 28px 0 40px;
+    line-height: 1.85;
+    animation: surge 0.8s ease both 0.3s;
+  }
+
+  .hero-row {
+    display: flex; align-items: flex-end;
+    justify-content: space-between; flex-wrap: wrap; gap: 28px;
+    animation: surge 0.8s ease both 0.4s;
+  }
+  .hero-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip {
+    border: 1px solid rgba(42,138,138,0.35);
+    color: var(--foam);
+    padding: 6px 14px;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 9px; letter-spacing: 0.5px; text-transform: uppercase;
+  }
+  .hero-stats { display: flex; gap: 36px; flex-wrap: wrap; }
+  .hs .n {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 38px; font-weight: 700;
+    color: var(--gold-light); display: block;
+    line-height: 1; letter-spacing: -1px;
+  }
+  .hs .l {
+    font-size: 9px; text-transform: uppercase;
+    letter-spacing: 2px; color: rgba(200,234,236,0.4);
+    font-family: 'Unbounded', sans-serif;
+  }
+
+  /* ── SEASON ── */
+  .season {
+    background: var(--teal);
+    padding: 16px 64px;
+    display: flex; align-items: center; gap: 14px;
+    font-size: 13.5px; color: white; flex-wrap: wrap;
+  }
+  .season strong { font-weight: 700; font-family: 'Unbounded', sans-serif; font-size: 12px; }
+  .season span { color: rgba(255,255,255,0.65); font-size: 13px; }
+
+  /* ── TRANSPORT ── */
+  .travel {
+    background: var(--warm);
+    border-bottom: 2px solid #e0d8c0;
+    padding: 20px 64px;
+    display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  }
+  .tr { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .tc { font-family: 'Unbounded', sans-serif; font-size: 16px; font-weight: 700; color: var(--deep); }
+  .ta { color: #b0a890; }
+  .td { font-size: 13px; color: var(--cliff); }
+  .tls { display: flex; gap: 10px; flex-wrap: wrap; }
+  .tb {
+    padding: 9px 18px; font-family: 'Unbounded', sans-serif;
+    font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px;
+    text-decoration: none; text-transform: uppercase; transition: all 0.2s;
+  }
+  .ts { background: var(--atlantic); color: var(--foam); }
+  .ts:hover { background: var(--wave); }
+  .tg { border: 1px solid #c8c0a8; color: var(--cliff); }
+  .tg:hover { border-color: var(--teal); color: var(--teal); }
+
+  /* ── STAY ── */
+  .stay {
+    background: var(--granite);
+    color: var(--cream);
+    padding: 80px 64px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 64px; align-items: start;
+  }
+  .ey {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 9px; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--teal-light);
+    margin-bottom: 14px; display: block;
+  }
+  .stay h2 {
+    font-size: 46px; font-weight: 400;
+    font-style: italic; line-height: 1.05;
+    margin-bottom: 16px; color: var(--cream);
+  }
+  .stay p { font-size: 14.5px; color: rgba(248,244,236,0.6); line-height: 1.85; margin-bottom: 18px; }
+  .stay-note {
+    background: rgba(255,255,255,0.05);
+    border-left: 2px solid var(--teal);
+    padding: 14px 18px; font-size: 13px;
+    color: rgba(248,244,236,0.5); margin-bottom: 0;
+  }
+  .stay-note strong { color: rgba(248,244,236,0.8); }
+  .sbs { display: flex; flex-direction: column; gap: 10px; }
+  .sbt {
+    display: block; text-align: center; padding: 13px 22px;
+    text-decoration: none; font-family: 'Unbounded', sans-serif;
+    font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px;
+    text-transform: uppercase; transition: all 0.2s;
+  }
+  .sbt.p { background: var(--teal); color: white; }
+  .sbt.p:hover { background: var(--teal-light); }
+  .sbt.o { border: 1px solid rgba(255,255,255,0.1); color: rgba(248,244,236,0.5); }
+  .sbt.o:hover { border-color: var(--teal-light); color: var(--teal-light); }
+
+  /* ── DAYS ── */
+  .days { padding: 80px 64px; }
+
+  .day-block { margin-bottom: 80px; }
+
+  .dh {
+    display: grid; grid-template-columns: 92px 1fr;
+    gap: 20px; align-items: baseline;
+    margin-bottom: 28px; padding-bottom: 16px;
+    border-bottom: 1px solid #e0d8c8;
+  }
+  .dn {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 72px; font-weight: 900;
+    color: #e8e0d0; line-height: 1;
+  }
+  .dh h2 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 20px; font-weight: 700; color: var(--deep);
+    letter-spacing: -0.5px;
+  }
+  .dh p { font-size: 14px; color: var(--cliff); margin-top: 5px; font-style: italic; }
+
+  .stops { display: flex; flex-direction: column; gap: 2px; }
+
+  .stop {
+    background: var(--white);
+    display: grid; grid-template-columns: 70px 1fr 130px;
+    border: 1px solid #e4dccf;
+    transition: all 0.18s;
+  }
+  .stop:hover {
+    border-color: var(--teal);
+    box-shadow: -3px 0 0 var(--teal);
+  }
+
+  .stc {
+    background: var(--atlantic);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 18px 6px; border-right: 1px solid #e4dccf;
+  }
+  .stc .t {
+    font-family: 'Unbounded', sans-serif; font-size: 15px;
+    font-weight: 700; color: var(--teal-light); line-height: 1;
+  }
+  .stc .ap { font-size: 8px; text-transform: uppercase; letter-spacing: 1px; color: rgba(200,234,236,0.45); font-family: 'Unbounded', sans-serif; }
+
+  .sbd { padding: 18px 22px; }
+  .sbd h3 { font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 7px; color: var(--deep); letter-spacing: -0.3px; }
+  .sbd p { font-size: 13.5px; color: var(--cliff); line-height: 1.65; }
+  .tags { display: flex; gap: 6px; margin-top: 9px; flex-wrap: wrap; }
+  .tag { font-family: 'Unbounded', sans-serif; font-size: 8.5px; padding: 3px 9px; letter-spacing: 0.3px; text-transform: uppercase; font-weight: 700; }
+  .tf { background: #e4f0ee; color: var(--teal); }
+  .tp { background: #fdf0e4; color: var(--rust); }
+  .th { background: #e8eef8; color: var(--wave); }
+  .tfd { background: #fdf8e4; color: #806010; }
+  .tv { background: #f4ecf8; color: var(--heather); }
+
+  .ctac {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 14px; border-left: 1px solid #e4dccf;
+  }
+  .cta {
+    display: inline-block; padding: 8px 12px;
+    font-family: 'Unbounded', sans-serif; font-size: 8.5px;
+    font-weight: 700; text-decoration: none;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    white-space: nowrap; transition: all 0.2s;
+  }
+  .cs { background: var(--atlantic); color: var(--foam); }
+  .cs:hover { background: var(--wave); }
+  .cg { border: 1px solid #d0c8b8; color: var(--cliff); }
+  .cg:hover { border-color: var(--teal); color: var(--teal); }
+
+  .banner {
+    padding: 16px 22px;
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 2px; flex-wrap: wrap;
+  }
+  .ba { background: var(--atlantic); }
+  .bt2 { background: var(--teal); }
+  .bg { background: var(--granite); }
+  .bh { background: var(--heather); }
+  .banner strong { font-family: 'Unbounded', sans-serif; font-size: 12px; color: white; font-weight: 700; display: block; }
+  .banner span { font-size: 13px; color: rgba(255,255,255,0.6); }
+  .banner a {
+    margin-left: auto; background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2); color: white;
+    padding: 7px 14px; text-decoration: none;
+    font-family: 'Unbounded', sans-serif; font-size: 8.5px;
+    font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+    white-space: nowrap; flex-shrink: 0; transition: background 0.2s;
+  }
+  .banner a:hover { background: rgba(255,255,255,0.2); }
+
+  /* tide note */
+  .tide-note {
+    background: rgba(42,138,138,0.08);
+    border: 1px solid rgba(42,138,138,0.2);
+    padding: 14px 20px; font-size: 13px;
+    color: var(--teal); margin-bottom: 2px; line-height: 1.65;
+  }
+  .tide-note strong { color: var(--deep); }
+
+  /* ── BUDGET ── */
+  .budget {
+    background: var(--atlantic);
+    padding: 80px 64px; color: var(--cream);
+  }
+  .bi { max-width: 680px; margin: 0 auto; }
+  .budget h2 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 46px; font-weight: 900;
+    color: var(--cream); letter-spacing: -2px; margin-bottom: 40px;
+    line-height: 1;
+  }
+  .brow {
+    display: grid; grid-template-columns: 1fr auto;
+    padding: 14px 0; border-bottom: 1px solid rgba(200,234,236,0.1);
+    gap: 20px; align-items: center;
+  }
+  .brow .item { font-size: 13.5px; color: rgba(248,244,236,0.65); }
+  .brow .amt {
+    font-family: 'Unbounded', sans-serif; font-size: 14px;
+    font-weight: 700; color: var(--foam); text-align: right; white-space: nowrap;
+  }
+  .fc {
+    background: rgba(42,138,138,0.25); color: var(--teal-light);
+    border: 1px solid rgba(42,138,138,0.4);
+    font-family: 'Unbounded', sans-serif;
+    font-size: 8.5px; padding: 2px 9px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700;
+  }
+  .brow.total {
+    border: none; border-top: 1px solid rgba(212,160,32,0.3);
+    padding-top: 24px; margin-top: 8px;
+  }
+  .brow.total .item { font-size: 15px; color: var(--cream); font-family: 'Unbounded', sans-serif; font-weight: 700; }
+  .brow.total .amt { font-size: 36px; color: var(--gold-light); }
+
+  /* ── TIPS ── */
+  .tips { padding: 80px 64px; background: var(--warm); }
+  .ti { max-width: 680px; margin: 0 auto; }
+  .tips h2 {
+    font-family: 'Unbounded', sans-serif; font-size: 42px;
+    font-weight: 900; color: var(--deep); margin-bottom: 36px; letter-spacing: -1px; line-height: 1.1;
+  }
+  .tip-list { list-style: none; display: flex; flex-direction: column; gap: 18px; }
+  .tip-list li {
+    display: grid; grid-template-columns: 28px 1fr;
+    gap: 12px; font-size: 14px; color: var(--cliff); line-height: 1.75;
+  }
+  .tip-list li .sq {
+    width: 10px; height: 10px;
+    background: var(--teal); margin-top: 5px; flex-shrink: 0;
+  }
+  .tip-list a { color: var(--atlantic); text-decoration: none; border-bottom: 1px solid rgba(13,37,53,0.2); }
+  .tip-list a:hover { border-color: var(--teal); color: var(--teal); }
+
+  /* ── COMPLETE BOX ── */
+  .complete {
+    background: var(--gold);
+    padding: 48px 64px;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .complete::before {
+    content: '✓';
+    position: absolute;
+    font-size: 300px; font-weight: 900;
+    color: rgba(255,255,255,0.08);
+    top: -60px; right: -40px;
+    line-height: 1; font-family: 'Unbounded', sans-serif;
+  }
+  .complete h2 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 28px; font-weight: 900;
+    color: var(--deep); margin-bottom: 12px; position: relative;
+  }
+  .complete p {
+    font-size: 16px; color: rgba(30,24,16,0.7);
+    max-width: 560px; margin: 0 auto; position: relative;
+    line-height: 1.7;
+  }
+  .complete .destinations {
+    display: flex; justify-content: center;
+    gap: 16px; flex-wrap: wrap; margin-top: 24px; position: relative;
+  }
+  .dest {
+    background: rgba(255,255,255,0.4);
+    padding: 8px 18px; font-family: 'Unbounded', sans-serif;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.5px;
+    text-transform: uppercase; color: var(--deep);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--deep); color: rgba(200,234,236,0.3);
+    text-align: center; padding: 32px;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  }
+  footer a { color: var(--teal-light); text-decoration: none; }
+
+  @keyframes surge {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 700px) {
+    .hero { padding: 48px 22px 60px; }
+    .season, .travel, .stay, .days, .budget, .tips, .complete { padding-left: 22px; padding-right: 22px; }
+    .stay { grid-template-columns: 1fr; gap: 36px; }
+    .stop { grid-template-columns: 1fr; }
+    .stc { flex-direction: row; gap: 8px; justify-content: flex-start; padding: 12px 18px; border-right: none; border-bottom: 1px solid #e4dccf; }
+    .ctac { border-left: none; border-top: 1px solid #e4dccf; justify-content: flex-start; padding: 12px 18px; }
+    .dn { font-size: 50px; }
+    .banner a { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wave-wrap">
+    <div class="wave wave1"></div>
+    <div class="wave wave2"></div>
+    <div class="wave wave3"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-flag">
+      <div class="line"></div>
+      <span>June–July · Family of 3 · 4 Nights · Bucket List #5</span>
+    </div>
+    <h1>
+      <span class="ghost">cliffs, tin mines & wild atlantic</span>
+      CORN<span class="accent">WALL</span>
+    </h1>
+    <p class="hero-body">England's last wild peninsula — ancient tin mine stacks balanced on cliff edges, turquoise coves straight from the Caribbean, and a coastline that feels like the edge of the world. The ultimate bucket-list finale.</p>
+    <div class="hero-row">
+      <div class="hero-chips">
+        <span class="chip">⛏️ Botallack Tin Mines</span>
+        <span class="chip">🏖️ Kynance Cove</span>
+        <span class="chip">🏰 Tintagel Castle</span>
+        <span class="chip">🎭 Minack Theatre</span>
+        <span class="chip">🌊 St Ives</span>
+      </div>
+      <div class="hero-stats">
+        <div class="hs"><span class="n">5h</span><span class="l">From London</span></div>
+        <div class="hs"><span class="n">4</span><span class="l">Nights</span></div>
+        <div class="hs"><span class="n">~£380</span><span class="l">Budget Est.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEASON -->
+<div class="season">
+  <span style="font-size:18px">☀️</span>
+  <strong>Why June–July is Cornwall's peak:</strong>
+  <span>Sea warm enough to swim · Golden clifftop light · Wildflowers on the coast path · Minack Theatre open-air season · Long evenings on the beach</span>
+</div>
+
+<!-- TRANSPORT -->
+<div class="travel">
+  <div class="tr">
+    <span class="tc">London Paddington</span>
+    <span class="ta">→</span>
+    <span class="tc">Penzance</span>
+    <span class="td">&nbsp;~5h direct · Night sleeper available</span>
+  </div>
+  <div class="tls">
+    <a href="https://www.gwr.com/travel-information/travelling-with-us/journey-planner" target="_blank" class="tb ts">🚂 Book GWR</a>
+    <a href="https://www.gwr.com/travel-information/travelling-with-us/night-riviera-sleeper" target="_blank" class="tb tg">Night Sleeper</a>
+    <a href="https://www.thetrainline.com/train-times/london-paddington-to-penzance" target="_blank" class="tb tg">Trainline</a>
+  </div>
+</div>
+
+<!-- STAY — split base -->
+<section class="stay">
+  <div>
+    <span class="ey">Two-Base Strategy</span>
+    <h2>YHA Treyarnon Bay<br>+ YHA Boscastle</h2>
+    <p>Cornwall is long — split the trip between two superb YHAs. Start at <strong style="color:var(--cream)">YHA Treyarnon Bay</strong> (north coast, 4.6★ — 30 seconds from the beach, surf, rock pools) for nights 1–2, then move to <strong style="color:var(--cream)">YHA Boscastle</strong> (4.8★ — where the river meets the sea, near Tintagel) for nights 3–4.</p>
+    <div class="stay-note">
+      <strong>Tip:</strong> Book Treyarnon Bay well ahead — it's one of the most popular YHAs in England and sells out months in advance for June–July.
+    </div>
+  </div>
+  <div class="sbs">
+    <a href="https://www.yha.org.uk/hostel/yha-treyarnon-bay" target="_blank" class="sbt p">📋 Book YHA Treyarnon Bay (nights 1–2)</a>
+    <a href="https://www.yha.org.uk/hostel/yha-boscastle" target="_blank" class="sbt p">📋 Book YHA Boscastle (nights 3–4)</a>
+    <a href="https://www.hostelworld.com/st/hostels/p/6078/yha-treyarnon-bay/" target="_blank" class="sbt o">Treyarnon on Hostelworld</a>
+    <a href="https://www.booking.com/hotel/gb/yha-treyarnon-bay.html" target="_blank" class="sbt o">Treyarnon on Booking.com</a>
+    <a href="https://www.booking.com/hotel/gb/yha-boscastle.html" target="_blank" class="sbt o">Boscastle on Booking.com</a>
+  </div>
+</section>
+
+<!-- ITINERARY -->
+<section class="days">
+
+  <!-- DAY 1 -->
+  <div class="day-block">
+    <div class="dh">
+      <div class="dn">01</div>
+      <div>
+        <h2>Arrive — Treyarnon Bay & St Ives</h2>
+        <p>The most beautiful town in Cornwall, then surf beach arrival</p>
+      </div>
+    </div>
+    <div class="stops">
+
+      <div class="stop">
+        <div class="stc"><span class="t">09:00</span><span class="ap">AM</span></div>
+        <div class="sbd">
+          <h3>Train London Paddington → Penzance</h3>
+          <p>GWR direct — 5 hours. Or take the legendary Night Riviera Sleeper (departs Paddington ~9pm, arrives Penzance 8am) for a budget-savvy overnight adventure the kids will never forget.</p>
+          <div class="tags"><span class="tag tv">~5h · Night sleeper available</span></div>
+        </div>
+        <div class="ctac"><a href="https://www.gwr.com" target="_blank" class="cta cs">Book GWR</a></div>
+      </div>
+
+      <div class="stop">
+        <div class="stc"><span class="t">2:00</span><span class="ap">PM</span></div>
+        <div class="sbd">
+          <h3>St Ives — Porthmeor Beach & Town</h3>
+          <p>Cornwall's most famous town — cobbled lanes, working fishing harbour, blue-flag Porthmeor beach (4.8★) perfect for swimming in June. Browse the galleries, eat a pasty on the harbour wall, and let the kids loose on the beach. Arrive by bus from Penzance in 30 mins.</p>
+          <div class="tags"><span class="tag tf">FREE</span><span class="tag th">⭐ Cornwall Icon</span></div>
+        </div>
+        <div class="ctac"><a href="https://www.visitcornwall.com/places/st-ives" target="_blank" class="cta cg">Info</a></div>
+      </div>
+
+      <div class="stop">
+        <div class="stc"><span class="t">6:00</span><span class="ap">PM</span></div>
+        <div class="sbd">
+          <h3>Bus to YHA Treyarnon Bay — Check In</h3>
+          <p>Bus north to Padstow area, then to Treyarnon Bay. The beach is 30 seconds from the front door. Watch the Atlantic sunset from the clifftop before dinner.</p>
+          <div class="tags"><span class="tag tv">Bus from St Ives</span></div>
+        </div>
+        <div class="ctac"><a href="https://www.firstbus.co.uk/cornwall" target="_blank" class="cta cg">Bus Info</a></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day-block">
+    <div class="dh">
+      <div class="dn">02</div>
+      <div>
+        <h2>Botallack Tin Mines & Land's End Coast</h2>
+        <p>UNESCO tin mines hanging over the Atlantic — Cornwall's most dramatic scene</p>
+      </div>
+    </div>
+
+    <div class="banner ba">
+      <span style="font-size:20px">⛏️</span>
+      <div>
+        <strong>Botallack — FREE UNESCO World Heritage Site</strong>
+        <span>Engine houses perched on cliff edges above the sea · Used as a filming location for Poldark · National Trust car park & café nearby</span>
+      </div>
+      <a href="https://www.nationaltrust.org.uk/botallack" target="_blank">NT Info →</a>
+    </div>
+
+    <div class="stops">
+
+      <div class="stop">
+        <div class="stc"><span class="t">10:00</span><span class="ap">AM</span></div>
+        <div class="sbd">
+          <h3>Botallack Mine & Engine Houses</h3>
+          <p>The most iconic image in Cornwall — two Victorian engine house stacks clinging impossibly to the cliff face above crashing Atlantic waves. Free to visit. Walk the clifftop path for increasingly dramatic views. Rated 4.9★ by nearly 300 visitors. The mine shafts extended 400m out under the sea.</p>
+          <div class="tags"><span class="tag tf">FREE</span><span class="tag th">⭐ Rated 4.9★ · UNESCO</span></div>
+        </div>
+        <div class="ctac"><a href="https://www.nationaltrust.org.uk/botallack" target="_blank" class="cta cg">Info</a></div>
+      </div>
+
+      <div class="stop">
+        <div class="stc"><span class="t">12:30</span><span class="ap">PM</span></div>
+        <div class="sbd">
+          <h3>Cape Cornwall — England's Only Cape</h3>
+          <p>A short walk from Botallack — Cape Cornwall is the only cape in England (Land's End is technically a headland). A dramatic windswept headland with another ruined mine chimney on top. Completely free, wild and utterly spectacular in June sunshine.</p>
+          <div class="tags"><span class="tag tf">FREE</span></div>
+        </div>
+        <div class="ctac"></div>
+      </div>
+
+      <div class="stop">
+        <div class="stc"><span class="t">2:30</span><span class="ap">PM</span></div>
+        <div class="sbd">
+          <h3>Minack Theatre, Porthcurno</h3>
+          <p>A hand-carved open-air Greek theatre built into the granite clifftop above Porthcurno Beach — one of the most extraordinary man-made structures in Britain. Admission includes a small museum about its remarkable creator Rowena Cade. Check for evening performances in June.</p>
+          <div class="tags"><span class="tag tp">~£6 adult · ~£2 child</span><span class="tag th">⭐ Unmissable</span></div>
+        </div>
+        <div class="ctac"><a href="https://www.minack.com/visit" target="_blank" class="cta cs">Book Tickets</a></div>
+      </div>
+
+      <div class="stop">
+        <div class="stc"><span class="t">4:30</span><span class="ap">PM</span></div>
+        <div class="sbd">
+          <h3>Porthcurno Beach</h3>
+          <p>Just below the Minack — one of Cornwall's most beautiful beaches, with white sand and vivid turquoise water sheltered by granite cliffs. Perfect for a June swim after the clifftop heat. Free.</p>
+          <div class="tags"><span class="tag tf">FREE</span></div>
+        </div>
+        <div class="ctac"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="day-block">
+    <div class="dh">
+      <div class="dn">03</div>
+      <div>
+        <h2>Kynance Cove & Move to Boscastle</h2>
+        <p>England's most spectacular cove, then Cornwall's most dramatic harbour village</p>
+      </div>
+    </div>
+
+    <div class="tide-note">
+      🌊 <strong>Essential:</strong> Check tide times for Kynance Cove before visiting — at high tide the beach disappears entirely. Plan to arrive 2–3 hours before low tide to access the caves and rock formations. Check <a href="https://www.bbc.co.uk/weather/coast-and-sea/tide-tables/12/kynance-cove" target="_blank" style="color:var(--teal)">BBC tide tables</a>.
+    </div>
+
+    <div class="stops">
+
+      <div class="stop">
+        <div class="stc"><span class="t">9:30</span><span class="ap">AM</span></div>
+        <div class="sbd">
+          <h3>Kynance Cove, Lizard Peninsula</h3>
+          <p>Arguably the most beautiful beach in England — jade-green serpentine rock stacks rising from white sand and translucent turquoise sea. Sea caves, natural arches and rock pools to explore. The Lizard Peninsula is England's most southerly point. Rated 4.8★. Plan 3 hours here.</p>
+          <div class="tags"><span class="tag tf">FREE entry · Small parking charge</span><span class="tag th">⭐ England's Most Beautiful Beach</span></div>
+        </div>
+        <div class="ctac"><a href="https://www.nationaltrust.org.uk/kynance-cove" target="_blank" class="cta cg">Info</a></div>
+      </div>
+
+      <div class="stop">
+        <div class="stc"><span class="t">1:00</span><span class="ap">PM</span></div>
+        <div class="sbd">
+          <h3>The Lizard Village & Pasty Lunch</h3>
+          <p>England's most southerly village — grab a proper Cornish pasty (crimped edge, D-shaped, never a fringe!) from a local bakery. Eat on the cliff with views of the shipping lanes. This is about as far south as you can go in England.</p>
+          <div class="tags"><span class="tag tfd">Pasty ~£4</span></div>
+        </div>
+        <div class="ctac"></div>
+      </div>
+
+      <div class="stop">
+        <div class="stc"><span class="t">4:00</span><span class="ap">PM</span></div>
+        <div class="sbd">
+          <h3>Boscastle Harbour — Check In YHA</h3>
+          <p>Travel north to Boscastle — Cornwall's most enchanting harbour village, where a narrow river cuts through a wooded gorge to meet the sea in a dog-leg inlet. YHA Boscastle (4.8★) sits right where the river meets the sea. Extraordinary setting.</p>
+          <div class="tags"><span class="tag tv">Bus/train via Penzance</span></div>
+        </div>
+        <div class="ctac"><a href="https://www.yha.org.uk/hostel/yha-boscastle" target="_blank" class="cta cs">Hostel</a></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DAY 4 -->
+  <div class="day-block">
+    <div class="dh">
+      <div class="dn">04</div>
+      <div>
+        <h2>Tintagel — King Arthur's Castle</h2>
+        <p>Legendary cliffside ruins above the crashing Atlantic</p>
+      </div>
+    </div>
+
+    <div class="banner bh">
+      <span style="font-size:20px">🏰</span>
+      <div>
+        <strong>Tintagel — Open Wed–Sun Only · Book Tickets in Advance</strong>
+        <span>English Heritage site · ~£18.50 adult · Kids under 5 FREE · Allow 3 hours</span>
+      </div>
+      <a href="https://www.english-heritage.org.uk/visit/places/tintagel-castle/" target="_blank">Book Tickets →</a>
+    </div>
+
+    <div class="stops">
+
+      <div class="stop">
+        <div class="stc"><span class="t">10:00</span><span class="ap">AM</span></div>
+        <div class="sbd">
+          <h3>Tintagel Castle</h3>
+          <p>Legendary birthplace of King Arthur — dramatic 13th-century castle ruins on an Atlantic headland connected by a spectacular footbridge above crashing waves. Steep paths but utterly worth it. The new bridge and restored island make this one of English Heritage's most dramatic sites. Rated 4.6★ with 18,000+ reviews.</p>
+          <div class="tags"><span class="tag tp">~£18.50 adult · Under 5 FREE</span><span class="tag th">⭐ English Heritage Icon</span></div>
+        </div>
+        <div class="ctac"><a href="https://www.english-heritage.org.uk/visit/places/tintagel-castle/" target="_blank" class="cta cs">Book Now</a></div>
+      </div>
+
+      <div class="stop">
+        <div class="stc"><span class="t">1:30</span><span class="ap">PM</span></div>
+        <div class="sbd">
+          <h3>Tintagel Village & Merlin's Cave</h3>
+          <p>Wander the village with its slate-roofed shops and King Arthur themed everything. At low tide, walk down to Merlin's Cave beneath the castle headland — a sea cave you can walk through as waves lap at the entrance. Free.</p>
+          <div class="tags"><span class="tag tf">FREE at low tide</span></div>
+        </div>
+        <div class="ctac"></div>
+      </div>
+
+      <div class="stop">
+        <div class="stc"><span class="t">4:00</span><span class="ap">PM</span></div>
+        <div class="sbd">
+          <h3>Boscastle Evening — Rocky Valley Walk</h3>
+          <p>From the hostel, walk the Rocky Valley above Boscastle — an ancient wooded gorge with Bronze Age rock labyrinths carved into the cliff. Free, atmospheric and completely unknown to most visitors. The perfect final Cornwall evening.</p>
+          <div class="tags"><span class="tag tf">FREE · Hidden Gem</span></div>
+        </div>
+        <div class="ctac"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DAY 5 -->
+  <div class="day-block">
+    <div class="dh">
+      <div class="dn">05</div>
+      <div>
+        <h2>Coastal Path & Train Home</h2>
+        <p>One final clifftop walk, then the long journey back</p>
+      </div>
+    </div>
+    <div class="stops">
+
+      <div class="stop">
+        <div class="stc"><span class="t">8:30</span><span class="ap">AM</span></div>
+        <div class="sbd">
+          <h3>South West Coast Path — Boscastle to Trebarwith</h3>
+          <p>A final 2-mile stretch of the world's longest coastal footpath — dramatic Atlantic cliffs, wildflowers in full summer bloom, and the sea stretching to America. Free. The most beautiful send-off possible.</p>
+          <div class="tags"><span class="tag tf">FREE</span></div>
+        </div>
+        <div class="ctac"></div>
+      </div>
+
+      <div class="stop">
+        <div class="stc"><span class="t">12:00</span><span class="ap">PM</span></div>
+        <div class="sbd">
+          <h3>Bus to Bodmin Parkway — Train to London</h3>
+          <p>Bus to Bodmin Parkway station, then GWR direct to London Paddington. Book return advance tickets for best fares. Settle in and relive the week.</p>
+          <div class="tags"><span class="tag tv">~4h 30m to London</span></div>
+        </div>
+        <div class="ctac"><a href="https://www.gwr.com" target="_blank" class="cta cs">Book Return</a></div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- BUDGET -->
+<section class="budget">
+  <div class="bi">
+    <span class="ey" style="color:var(--teal-light)">Rough Estimate</span>
+    <h2>Budget<br>Breakdown</h2>
+    <div class="brow">
+      <span class="item">🚂 Train — London Paddington ↔ Penzance/Bodmin (2 adults + 1 child)</span>
+      <span class="amt">~£80–130</span>
+    </div>
+    <div class="brow">
+      <span class="item">🚌 Local Cornwall buses (4 days)</span>
+      <span class="amt">~£30</span>
+    </div>
+    <div class="brow">
+      <span class="item">🏡 YHA Treyarnon Bay — 2 nights (family room)</span>
+      <span class="amt">~£70–90</span>
+    </div>
+    <div class="brow">
+      <span class="item">🏡 YHA Boscastle — 2 nights (family room)</span>
+      <span class="amt">~£70–90</span>
+    </div>
+    <div class="brow">
+      <span class="item">⛏️ Botallack Tin Mines + Cape Cornwall</span>
+      <span class="amt"><span class="fc">FREE</span></span>
+    </div>
+    <div class="brow">
+      <span class="item">🎭 Minack Theatre (2 adults + 1 child)</span>
+      <span class="amt">~£14</span>
+    </div>
+    <div class="brow">
+      <span class="item">🏖️ Kynance Cove + St Ives beach</span>
+      <span class="amt"><span class="fc">FREE</span></span>
+    </div>
+    <div class="brow">
+      <span class="item">🏰 Tintagel Castle (2 adults + under 5 free)</span>
+      <span class="amt">~£37</span>
+    </div>
+    <div class="brow">
+      <span class="item">🥪 Food — pasties, fish & chips, self-catering (5 days)</span>
+      <span class="amt">~£60–80</span>
+    </div>
+    <div class="brow total">
+      <span class="item">Total Estimate — Family of 3</span>
+      <span class="amt">£361–471</span>
+    </div>
+  </div>
+</section>
+
+<!-- TIPS -->
+<section class="tips">
+  <div class="ti">
+    <span class="ey">Insider Advice</span>
+    <h2>Cornwall Know-How</h2>
+    <ul class="tip-list">
+      <li><span class="sq"></span><span>The <strong>Night Riviera Sleeper</strong> from Paddington to Penzance is a brilliant budget hack — a private cabin for the family, you arrive refreshed, and it often costs less than a day train. <a href="https://www.gwr.com/travel-information/travelling-with-us/night-riviera-sleeper" target="_blank">Book via GWR</a>.</span></li>
+      <li><span class="sq"></span><span>Book <a href="https://www.yha.org.uk/hostel/yha-treyarnon-bay" target="_blank">YHA Treyarnon Bay</a> as early as possible — it books out months ahead for June–July. It's one of England's most popular hostels for a reason.</span></li>
+      <li><span class="sq"></span><span>The <a href="https://www.firstbus.co.uk/cornwall" target="_blank">First Kernow buses</a> cover most of Cornwall — a Day Rider ticket (~£9 adult, ~£5 child) covers unlimited travel. The A1/A2 routes link Penzance, St Ives, and St Just for the tin mine area.</span></li>
+      <li><span class="sq"></span><span>Tintagel is only open Wednesday–Sunday — plan your Day 4 accordingly, and <a href="https://www.english-heritage.org.uk/visit/places/tintagel-castle/" target="_blank">book English Heritage tickets</a> online (cheaper than gate price). An EH family membership pays for itself on this trip.</span></li>
+      <li><span class="sq"></span><span>Check tide times for Kynance Cove religiously — arriving at high tide means no beach. The Lizard outpost of the NT has up-to-date advice. Aim for 2 hours before low tide.</span></li>
+      <li><span class="sq"></span><span>A real Cornish pasty has a crimped edge on the side (not the top), contains beef skirt, potato, swede and onion — and jam goes first, then cream (the opposite of Devon). <a href="https://www.cornishpastysassociation.co.uk" target="_blank">Cornish Pasty Association</a> has a maker finder.</span></li>
+      <li><span class="sq"></span><span>Botallack and Cape Cornwall are completely free and genuinely more spectacular than Land's End (which is commercialised and charges entry). Skip Land's End entirely.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- BUCKET LIST COMPLETE -->
+<div class="complete">
+  <h2>🎉 Bucket List Complete!</h2>
+  <p>You've planned 7 incredible UK trips for your family — from the medieval walls of York to the tin-mine cliffs of Cornwall. Every one reachable by public transport, every one budget-friendly, every one unforgettable.</p>
+  <div class="destinations">
+    <span class="dest">✓ Bath</span>
+    <span class="dest">✓ Canterbury</span>
+    <span class="dest">✓ York</span>
+    <span class="dest">✓ Snowdonia</span>
+    <span class="dest">✓ Norfolk</span>
+    <span class="dest">✓ Peak District</span>
+    <span class="dest">✓ Devon</span>
+    <span class="dest">✓ Cornwall</span>
+  </div>
+</div>
+
+<footer>
+  <p>Cornwall Family Trip Guide &nbsp;·&nbsp; June–July 2025 &nbsp;·&nbsp;
+  <a href="https://www.visitcornwall.com" target="_blank">visitcornwall.com</a> &nbsp;·&nbsp;
+  <a href="https://www.gwr.com" target="_blank">gwr.com</a>
+  </p>
+</footer>
+
+</body>
+</html>
